@@ -1,0 +1,406 @@
+@font-face {
+    font-family: 'icones';
+    src: url(../font/icones.ttf);
+}
+
+body{
+    background-color: #1D232A;
+    font-family: 'Open Sans', 'icones', sans-serif;
+    color: #FFFFFF;
+}
+
+@media screen and (min-width: 1440px) {
+    body{
+        display: grid;
+        grid-template-columns: auto 1fr; /*espaço do menu lateral e para o restante*/
+    }
+}
+
+.cabecalho{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #15191C;
+    padding: 8px 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.16);
+}
+
+.cabecalho__menu i::before{
+    content: "\e904";
+    font-size: 24px;
+}
+
+.cabecalho__notificacao i::before{
+    content: "\e906";
+    font-size: 24px;
+}
+
+.cabecalho__logo{
+    width: 40px;
+}
+
+.cabecalho_perfil{ /*esconde alguma coisa ai na versao mobile que aparece na versao desktop*/
+    display: none;
+}
+
+@media screen and (min-width: 1440px) {
+    .cabecalho{
+        background-color: #1D232A;
+        display: grid;
+        column-gap: 32px;
+        grid-template-columns: 1fr auto;
+        padding: 16px 60px;
+        height: 80px;
+        box-sizing: border-box;/*é a garantia que a altura acima vai ser respeitada*/
+        grid-column: 2 ;
+    }
+
+    .cabecalho__menu{
+        display: none; /*ou seja, não vai existir*/
+    }
+
+    .cabecalho__logo{
+        display: none;
+    }
+
+    .cabecalho_perfil{
+        display: grid;
+        grid-template-columns: repeat(3,auto);/*temos 3 colunas de mesmo tamanho, ao inves de escrever auto auto auto, podemos usar a funçãp repeat*/
+        column-gap: 8px;
+        align-items: center; /*alinhado na vertical*/
+        justify-self: flex-end; /*ficar totalmente a direita*/
+        color: #95999C;
+        padding: 8px 32px;
+        border-right: 1px solid #95999C; /*divisão entre o perfil e as notificações*/
+    }
+
+    .cabecalho_perfil::before{
+        content: "";
+        display: block;
+        width: 32px;
+        height: 32px;
+        background-image: url(../img/profile_2.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .cabecalho_perfil::after{
+        content: "\e90d";
+        color: #FFFFFF;
+        font-size: 1.5rem;
+    }
+
+}
+
+.menu-lateral{ /*isso é quando o menu não tá aparecendo*/
+    display: flex;
+    flex-direction: column;
+    background-color: #15191C;
+    width: 75vw;
+    height: 100vh;
+    /*para que ele se esconda fazemos isso: */
+    position: absolute;
+    left: -100vw; /*colocando um valor negativo bem alto ou que seja do tamanho da tela*/
+    transition: .25s;
+}
+
+.menu-lateral--ativo{
+    left: 0;
+    transition: .25s;
+}
+
+.menu-lateral_logo{
+    width: 118px;
+    align-self: center;
+    padding: 16px;
+}
+
+.menu-lateral__link{
+    height: 64px;
+    color: #95989C;
+    padding-left: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.menu-lateral__link--ativo {
+    color: #FFFFFF;
+    padding-left: 56px;/*reduzimos o padding para caber a barrinha branca que vai aparecer quando o link for selecionado*/
+    border-left: 8px solid #FFFFFF;
+}
+
+.menu-lateral__link::before{
+    content: "\e900";  /*inicialmente esse content não tinha nada pq cada link teria seu ícone*/
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    position: absolute;
+    left: 24px;
+}
+
+
+.menu-lateral__link-inicio::before{
+    content:"\e902"
+}
+
+.menu-lateral__link-videos::before{
+    content:"\e90e"
+}
+
+.menu-lateral__link-picos::before{
+    content:"\e909"
+}
+
+.menu-lateral__link-integrantes::before{
+    content:"\e903"
+}
+
+.menu-lateral__link-camisas::before{
+    content:"\e900"
+}
+
+.menu-lateral__link-pinturas::before{
+    content:"\e90a"
+}
+
+@media screen and (min-width: 1440px) {
+    .menu-lateral{
+        position: static;
+        width: 200px;
+        grid-column: 1;/*onde começa a coluna, o cabeçalho ocupa a primeira linha e a primeira coluna(junto com o menu principal abaixo, pq por obrigação o primeiro elemento do html é o que começa*/
+        /*só mexendo nele pra entender melhor*/
+        grid-row: 1 /span 2;/*qual linha começa o menu lateral, quando inserimos esse comando depois do de cima o menu lateral agora ocupa a primeira linha, e não mais o cabeçalho*/
+        /*vai começar na primeira linha e vai ocupar 2 linhas (da um span de 2 linhas)*/
+    }
+}
+
+.principal{
+    padding: 24px 16px;
+    display: grid;
+    gap: 16px;
+}
+
+.titulo-pagina{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.titulo-secao{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+@media screen and (min-width:1440px) {
+    .principal{
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas: 
+            "titulo-pagina titulo-pagina titulo-pagina"
+            "destaque-video destaque-video videos-recentes"
+            "secao-videos secao-videos secao-videos"
+            "produtos-recentes destaque-produtos destaque-produtos"
+            "secao-produtos secao-produtos secao-produtos"
+        ;
+        column-gap: 32px;
+        padding: 16px 60px;
+    }
+
+    .titulo-secao {
+        grid-column: span 4;
+    }
+}
+
+.cartao{
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden; /*qualquer coisa que passa do conteúdo do cartão fica escondido*/
+    background-color: #2C343A;
+}
+
+.cartao_imagem-desktop{
+    display: none; /*já que o principal aqui é a versão mobile, e a versão desktop ta dentro do @media screen*/
+}
+
+.cartao-destaque{
+    margin-bottom: 16px;
+}
+
+.cartao_conteudo{
+    padding: 16px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+}
+
+.cartao_destaque{
+    grid-column: span 2;
+}
+
+.cartao_titulo{
+    font-size: 1.2rem;
+    font-weight: 700;
+    grid-column: span 2;
+}
+
+.cartao_perfil{
+    color: #959990;
+    font-size: 0.9rem;
+    grid-column: span 2;
+}
+
+.cartao_info{
+    display: flex; /**pra poder alinhar os icones com os textos dps*/
+    align-items: center;
+    color: #95999C;
+}
+
+.cartao_info-tempo::before{
+    content: "\e90c";
+    margin-right: 8px;
+}
+
+.cartao_info-visualizacao::before{
+    content: "\e90f";
+    margin-right: 8px;
+}
+
+.cartao_botao{
+    display: flex; /*pra poder trbalhar com pseudo elemento, que são os ícones*/
+    justify-content: center;
+    align-items: center;
+    background-color: #0480DC;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    justify-self: flex-end ;
+}
+
+.cartao_botao-play::before{
+    content: "\e90b";
+    font-size: 24px;
+}
+
+.cartao_botao-destaque{
+    width: 100%;
+    grid-column: span 2;
+}
+
+.cartao_botao-destaque::before{
+    margin-right: 8px;
+}
+
+.cartao-recentes{
+    display: none; /*não existe na versão mobile*/
+}
+
+@media screen and (min-width: 1440px) {
+    .cartao-destaque{
+        margin-bottom: 0;
+    }
+
+    .cartao_imagem-mobile{
+        display: none; 
+    }
+
+    .cartao_imagem-desktop{
+        display: block; 
+    }
+
+    .cartao_botao-destaque{
+        grid-column: auto;
+        padding: 16px 8px;
+    }
+
+    .cartao-recentes{
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+        row-gap: 24px; /*distância entre linha*/
+        width: 256px;
+        padding: 16px;
+        box-sizing: border-box;
+        align-self: flex-start;
+    }
+
+    .cartao-recentes .cartao_titulo {
+        grid-column: auto;
+    }
+
+    .cartao_link { 
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #0480DC;
+        justify-self: flex-end;
+    }
+
+    .cartao_lista {
+        display: grid;
+        row-gap: 16px;
+        grid-column: span 2;
+    }
+
+    .cartao_item{
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 8px;
+    }
+
+    .cartao_item-thumbnail{
+        width: 32px;
+        grid-row: span 2;
+    }
+
+    .cartao_item-titulo{
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+        font-weight: 700;
+    }
+
+    .cartao_item-perfil{
+        font-size: 00.8rem;
+        color: #95999C;
+    }
+}
+
+
+.secao{
+    display: grid;
+    gap: 16px;
+}
+
+@media screen and (min-width: 1440px) {
+    .secao{
+        grid-template-columns: repeat(4, 1fr); /*4 colunas de 1 fração*/
+    }
+}
+
+
+@media screen and (min-width: 1440px){
+    .destaque-video{
+        grid-area: destaque-video;
+    }
+
+    .videos-recentes{
+        grid-area: videos-recentes;
+    }
+
+    .secao-videos{
+        grid-area: secao-videos;
+    }
+
+    .destaque-produtos{
+        grid-area: destaque-produtos;
+    }
+
+    .produtos-recentes{
+        grid-area: produtos-recentes;
+    }
+
+    .secao-produtos{
+        grid-area: secao-produtos;
+    }
+
+}
+    
